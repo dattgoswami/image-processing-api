@@ -20,7 +20,7 @@ console.log(displayMessage);
 
 let thumbPath = path.join(__dirname, '../../../thumb/');
 
-images.get('/', async (req, res) => {
+images.get('/', async (req: express.Request, res: express.Response) => {
   let width = Number(req.query.width);
   let height = Number(req.query.height);
   let name: string = req.query.filename as unknown as string;

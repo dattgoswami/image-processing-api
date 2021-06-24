@@ -13,6 +13,7 @@ Once you have cloned the project from the github repo, navigate to the project d
 npm install
 npm run test
 npm run start
+//OR
 node dist/index.js
 ```
 To run the prettier and lint scripts use following commands:
