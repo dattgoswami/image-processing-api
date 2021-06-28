@@ -24,21 +24,31 @@ images.get('/', async (req: express.Request, res: express.Response) => {
   let width = Number(req.query.width);
   let height = Number(req.query.height);
   let name: string = req.query.filename as unknown as string;
-  if (Object.keys(req.query).length === 0) {
-    //if the user does not provide any parameters
-    res.send(displayMessage);
-  } else if (imageExists(name, width, height, 'thumb')) {
-    //if the image already exists in the thumb folder
-    res.sendFile(thumbPath + name + '_' + width + '_' + height + '.jpg');
-  } else if (imageExists(name, width, height, 'full_images')) {
-    //if the image exists in the original full_images folder
-    await convert(name, width, height);
-    res.sendFile(thumbPath + name + '_' + width + '_' + height + '.jpg');
+  let digits: RegExp = /[0-9]/;
+  if (
+    digits.test(width.toString()) &&
+    digits.test(height.toString()) &&
+    width < 10000 &&
+    height < 10000
+  ) {
+    if (Object.keys(req.query).length === 0) {
+      //if the user does not provide any parameters
+      res.send(displayMessage);
+    } else if (imageExists(name, width, height, 'thumb')) {
+      //if the image already exists in the thumb folder
+      res.sendFile(thumbPath + name + '_' + width + '_' + height + '.jpg');
+    } else if (imageExists(name, width, height, 'full_images')) {
+      //if the image exists in the original full_images folder
+      await convert(name, width, height);
+      res.sendFile(thumbPath + name + '_' + width + '_' + height + '.jpg');
+    } else {
+      //the image that is being requested does not exist
+      res.send(
+        'The image that you have requested does not exist.' + displayMessage
+      );
+    }
   } else {
-    //the image that is being requested does not exist
-    res.send(
-      'The image that you have requested does not exist.' + displayMessage
-    );
+    res.send('please enter valid numbers in the width and height feild');
   }
 });
 

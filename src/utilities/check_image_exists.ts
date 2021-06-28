@@ -18,10 +18,17 @@ function imageExists(
     fileName = name + '.jpg';
     let imagePath = path.join(__dirname, '../../full_images/');
   }
-  //returns true if the file exists
+  // returns true if the file exists
   if (fs.existsSync(filePath + fileName)) {
     return true;
   }
+  // fs.access(filePath + fileName, (err) => {
+  //   if (err) {
+  //     return false;
+  //   } else {
+  //     return true;
+  //   }
+  // });
   return false;
 }
 
