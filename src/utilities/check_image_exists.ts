@@ -22,13 +22,6 @@ function imageExists(
   if (fs.existsSync(filePath + fileName)) {
     return true;
   }
-  // fs.access(filePath + fileName, (err) => {
-  //   if (err) {
-  //     return false;
-  //   } else {
-  //     return true;
-  //   }
-  // });
   return false;
 }
 
