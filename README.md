@@ -2,6 +2,8 @@
 
 The task of this project was to read the images from the file system using the arguments from the query parameters. Once the file is located, the width and the height values are used to resize the image using sharp library. The image is then displayed in the given dimensions.
 
+It is using redis as a caching layer to store the filename and its entire path, if there is another call for the same image then it can be loaded using the value of the location from redis.
+
 ## Getting Started
 
 The src folder has index.ts which creates the server and starts listening on port 3000. The routes folder has index.ts file which creates an express router and configures the images endpoint to use the module images from routes/api/images.ts. This file has a get method which parses the query parameters and processes the file if they are valid and the file exists. If there are not any parameters it indicates the user on how to use this api. The utilities folder has check_image_exists.ts which checks if the image that is being requested exists in the thumb folder first and then in the full_images folder and convert_images.ts file has a function convert() which does the conversion of the actual image to the required specification. It uses sharp library for doing this conversion.
